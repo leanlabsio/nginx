@@ -1,13 +1,12 @@
-FROM gliderlabs/alpine
+FROM gliderlabs/alpine:latest
 
-RUN apk --update add nginx
+EXPOSE 80 443
+
+RUN apk-install nginx \
+    && mkdir -p /tmp/nginx/client-body
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir -p /tmp/nginx/client-body
-
 WORKDIR /etc/nginx
-
-EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
