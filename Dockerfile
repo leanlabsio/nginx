@@ -1,9 +1,10 @@
-FROM gliderlabs/alpine:3.1
+FROM alpine:3.2
 
 EXPOSE 80 443
 
-RUN apk-install nginx \
-    && mkdir -p /tmp/nginx/client-body
+RUN apk add --update nginx && \
+    rm -rf /var/cache/apk/* && \
+    mkdir -p /tmp/nginx/client-body
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
